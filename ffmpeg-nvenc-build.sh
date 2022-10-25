@@ -178,8 +178,6 @@ compileLibMP3Lame() {
     Make install distclean
 }
 
-}
-
 compileFfmpeg(){
     echo "Compiling ffmpeg"
     Clone https://github.com/FFmpeg/FFmpeg -b master
