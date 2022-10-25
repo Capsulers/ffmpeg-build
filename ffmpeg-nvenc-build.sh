@@ -158,16 +158,6 @@ compileLibX265() {
     sed -i.orig -e 's,^ *x265_param\* zoneParam,struct x265_param* zoneParam,' "$DEST_DIR/include/x265.h"
 }
 
-compileLibAom() {
-    echo "Compiling libaom"
-    Clone https://aomedia.googlesource.com/aom
-    mkdir ../aom_build
-    cd ../aom_build
-    which cmake3 && PROG=cmake3 || PROG=cmake
-    $PROG -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$DEST_DIR" -DENABLE_SHARED=off -DENABLE_NASM=on ../aom
-    Make install
-}
-
 compileLibfdkcc() {
     echo "Compiling libfdk-cc"
     cd "$WORK_DIR/"
@@ -189,36 +179,6 @@ compileLibMP3Lame() {
     Make install distclean
 }
 
-compileLibOpus() {
-    echo "Compiling libopus"
-    cd "$WORK_DIR/"
-    Wget "http://downloads.xiph.org/releases/opus/opus-$OPUS_VERSION.tar.gz"
-    tar xzvf "opus-$OPUS_VERSION.tar.gz"
-    cd "opus-$OPUS_VERSION"
-    #./autogen.sh
-    ./configure --prefix="$DEST_DIR" --disable-shared
-    Make install distclean
-}
-
-compileLibVpx() {
-    echo "Compiling libvpx"
-    Clone https://chromium.googlesource.com/webm/libvpx
-    ./configure --prefix="$DEST_DIR" --disable-examples --enable-runtime-cpu-detect --enable-vp9 --enable-vp8 \
-    --enable-postproc --enable-vp9-postproc --enable-multi-res-encoding --enable-webm-io --enable-better-hw-compatibility \
-    --enable-vp9-highbitdepth --enable-onthefly-bitpacking --enable-realtime-only \
-    --cpu=native --as=nasm --disable-docs
-    Make install clean
-}
-
-compileLibAss() {
-    echo "Compiling libass"
-    cd "$WORK_DIR/"
-    Wget "https://github.com/libass/libass/releases/download/$LASS_VERSION/libass-$LASS_VERSION.tar.xz"
-    tar Jxvf "libass-$LASS_VERSION.tar.xz"
-    cd "libass-$LASS_VERSION"
-    autoreconf -fiv
-    ./configure --prefix="$DEST_DIR" --disable-shared
-    Make install distclean
 }
 
 compileFfmpeg(){
@@ -239,19 +199,15 @@ compileFfmpeg(){
       --enable-cuvid \
       --enable-libnpp \
       --enable-gpl \
-      --enable-libass \
       --enable-libfdk-aac \
       --enable-vaapi \
       --enable-libfreetype \
       --enable-libmp3lame \
-      --enable-libopus \
       --enable-libtheora \
       --enable-libvorbis \
-      --enable-libvpx \
       --enable-libx264 \
       --enable-libx265 \
       --enable-nonfree \
-      --enable-libaom \
       --enable-nvenc
     Make install distclean
     hash -r
@@ -265,12 +221,8 @@ compileNasm
 compileYasm
 compileLibX264
 compileLibX265
-compileLibAom
-compileLibVpx
 compileLibfdkcc
 compileLibMP3Lame
-compileLibOpus
-compileLibAss
 # TODO: libogg
 # TODO: libvorbis
 compileFfmpeg
