@@ -211,8 +211,8 @@ compileFfmpeg(){
 }
 
 installLibs
-installCUDASDK
-installNvidiaSDK
+#installCUDASDK
+#installNvidiaSDK
 
 compileNasm
 compileYasm
