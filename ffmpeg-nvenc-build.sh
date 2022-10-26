@@ -16,7 +16,7 @@ LASS_VERSION="0.14.0"
 #CUDA_VERSION="10.1.243-1"
 #CUDA_RPM_VER="-10-1"
 #CUDA_REPO_KEY="http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub"
-#CUDA_DIR="/usr/local/cuda"
+CUDA_DIR="/usr/local/cuda"
 WORK_DIR="/usr/ffmpeg-build-static-sources"
 DEST_DIR="/usr/ffmpeg-build-static-binaries"
 
@@ -65,7 +65,7 @@ installLibs() {
         * )                  installYumLibs ;;
     esac
 }
-
+"""
 installCUDASDKdeb() {
     UBUNTU_VERSION="$1"
     local CUDA_REPO_URL="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_VERSION}/x86_64/cuda-repo-ubuntu1804_${CUDA_VERSION}_amd64.deb"
@@ -108,7 +108,7 @@ installNvidiaSDK() {
     patch --force -d "$DEST_DIR" -p1 < "$MYDIR/dynlink_cuda.h.patch" ||
         echo "..SKIP PATCH, POSSIBLY NOT NEEDED. CONTINUED.."
 }
-
+"""
 compileNasm() {
     echo "Compiling nasm"
     cd "$WORK_DIR/"
