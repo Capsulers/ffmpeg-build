@@ -99,16 +99,18 @@ installCUDASDK() {
         * ) echo "ERROR: only CentOS 7, Ubuntu 16.04 or 18.04 are supported now."; exit 1;;
     esac
 }
-
+"""
 installNvidiaSDK() {
     echo "Installing the nVidia NVENC SDK."
     Clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+    cd nv-codec-headers
+    git checkout -b sdk/11.0  origin/sdk/11.0
     make
     make install PREFIX="$DEST_DIR"
     patch --force -d "$DEST_DIR" -p1 < "$MYDIR/dynlink_cuda.h.patch" ||
         echo "..SKIP PATCH, POSSIBLY NOT NEEDED. CONTINUED.."
 }
-"""
+
 compileNasm() {
     echo "Compiling nasm"
     cd "$WORK_DIR/"
@@ -212,7 +214,7 @@ compileFfmpeg(){
 
 installLibs
 #installCUDASDK
-#installNvidiaSDK
+installNvidiaSDK
 
 compileNasm
 compileYasm
