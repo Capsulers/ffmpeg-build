@@ -13,9 +13,9 @@ NASM_VERSION="2.15.03"
 YASM_VERSION="1.3.0"
 LAME_VERSION="3.100"
 LASS_VERSION="0.14.0"
-#CUDA_VERSION="10.1.243-1"
-#CUDA_RPM_VER="-10-1"
-#CUDA_REPO_KEY="http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub"
+CUDA_VERSION="10.1.243-1"
+CUDA_RPM_VER="-10-1"
+CUDA_REPO_KEY="http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub"
 CUDA_DIR="/usr/local/cuda"
 WORK_DIR="/usr/ffmpeg-build-static-sources"
 DEST_DIR="/usr/ffmpeg-build-static-binaries"
@@ -65,7 +65,7 @@ installLibs() {
         * )                  installYumLibs ;;
     esac
 }
-"""
+
 installCUDASDKdeb() {
     UBUNTU_VERSION="$1"
     local CUDA_REPO_URL="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_VERSION}/x86_64/cuda-repo-ubuntu1804_${CUDA_VERSION}_amd64.deb"
@@ -99,7 +99,7 @@ installCUDASDK() {
         * ) echo "ERROR: only CentOS 7, Ubuntu 16.04 or 18.04 are supported now."; exit 1;;
     esac
 }
-"""
+
 installNvidiaSDK() {
     echo "Installing the nVidia NVENC SDK."
     Clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
@@ -184,7 +184,7 @@ compileFfmpeg(){
     echo "Compiling ffmpeg"
     Clone https://github.com/FFmpeg/FFmpeg -b n4.4.1
 
-    #export PATH="$CUDA_DIR/bin:$PATH"  # ..path to nvcc
+    export PATH="$CUDA_DIR/bin:$PATH"  # ..path to nvcc
     PKG_CONFIG_PATH="$DEST_DIR/lib/pkgconfig:$DEST_DIR/lib64/pkgconfig" \
     ./configure \
       --pkg-config-flags="--static" \
@@ -194,7 +194,7 @@ compileFfmpeg(){
       --extra-ldflags="-L $DEST_DIR/lib -L $CUDA_DIR/lib64/" \
       --extra-libs="-lpthread" \
       --enable-cuda \
-      #--enable-cuda-nvcc \
+      --enable-cuda-nvcc \
       --enable-cuvid \
       --enable-libnpp \
       --enable-gpl \
@@ -213,7 +213,7 @@ compileFfmpeg(){
 }
 
 installLibs
-#installCUDASDK
+installCUDASDK
 installNvidiaSDK
 
 compileNasm
