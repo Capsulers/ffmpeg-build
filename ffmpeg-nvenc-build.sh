@@ -182,7 +182,7 @@ compileFfmpeg(){
     echo "Compiling ffmpeg"
     Clone https://github.com/FFmpeg/FFmpeg -b release/4.4
 
-    #export PATH="$CUDA_DIR/bin:$PATH"  # ..path to nvcc
+    export PATH="$CUDA_DIR/bin:$PATH"  # ..path to nvcc
     PKG_CONFIG_PATH="$DEST_DIR/lib/pkgconfig:$DEST_DIR/lib64/pkgconfig" \
     ./configure \
       --pkg-config-flags="--static" \
