@@ -104,7 +104,7 @@ installNvidiaSDK() {
     echo "Installing the nVidia NVENC SDK."
     Clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
     cd nv-codec-headers
-    git checkout -b sdk/10.0  origin/sdk/10.0
+    git checkout -b sdk/9.0  origin/sdk/9.0
     make
     make install PREFIX="$DEST_DIR"
     patch --force -d "$DEST_DIR" -p1 < "$MYDIR/dynlink_cuda.h.patch" ||
