@@ -182,7 +182,7 @@ compileLibMP3Lame() {
 
 compileFfmpeg(){
     echo "Compiling ffmpeg"
-    Clone https://github.com/Capsulers/FFmpeg -b compute_75_sm_75
+    Clone https://github.com/Capsulers/FFmpeg -b 4.2.1
 
     export PATH="$CUDA_DIR/bin:$PATH"  # ..path to nvcc
     PKG_CONFIG_PATH="$DEST_DIR/lib/pkgconfig:$DEST_DIR/lib64/pkgconfig" \
