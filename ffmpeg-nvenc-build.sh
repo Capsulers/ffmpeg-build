@@ -184,7 +184,6 @@ compileFfmpeg(){
     echo "Compiling ffmpeg"
     Wget -O FFmpeg.tar.bz2 https://github.com/Capsulers/FFmpeg4.3.1/releases/download/4.3.1/ffmpeg-4.3.1.tar.bz2
     tar xjvf "FFmpeg.tar.bz2"
-    cd "FFmpeg"
     export PATH="$CUDA_DIR/bin:$PATH"  # ..path to nvcc
     PKG_CONFIG_PATH="$DEST_DIR/lib/pkgconfig:$DEST_DIR/lib64/pkgconfig" \
     ./configure \
